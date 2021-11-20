@@ -5,9 +5,11 @@ import java.util.Objects;
 
 public class Film {
 
+	// No arg-ctor
 	public Film() {
 	}
 
+	// ctor w/args
 	public Film(int filmId, String title, String description, int releaseYear, int languageId, int rentalDuration,
 			double rentalRate, int length, double replacementCost, String rating, String specialFeatures) {
 		super();
@@ -24,7 +26,6 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 	}
 
-//	private List<Actor> actors;
 
 	private int filmId;
 	private String title;
@@ -37,7 +38,7 @@ public class Film {
 	private double replacementCost;
 	private String rating;
 	private String specialFeatures;
-	
+	private List<Actor> actors;
 	
 
 	public int getFilmId() {
@@ -127,11 +128,20 @@ public class Film {
 	public void setSpecialFeatures(String specialFeatures) {
 		this.specialFeatures = specialFeatures;
 	}
+	
+	public List<Actor> getActors() {
+		return actors;
+	}
+
+	public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
+
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, filmId, languageId, length, rating, releaseYear, rentalDuration, rentalRate,
-				replacementCost, specialFeatures, title);
+		return Objects.hash(description, filmId, actors, languageId, length, rating, releaseYear, rentalDuration,
+				rentalRate, replacementCost, specialFeatures, title);
 	}
 
 	@Override
@@ -143,21 +153,35 @@ public class Film {
 		if (getClass() != obj.getClass())
 			return false;
 		Film other = (Film) obj;
-		return Objects.equals(description, other.description) && filmId == other.filmId && languageId == other.languageId
-				&& length == other.length && Objects.equals(rating, other.rating) && releaseYear == other.releaseYear
-				&& rentalDuration == other.rentalDuration && rentalRate == other.rentalRate
-				&& replacementCost == other.replacementCost && Objects.equals(specialFeatures, other.specialFeatures)
-				&& Objects.equals(title, other.title);
+		return Objects.equals(description, other.description) && filmId == other.filmId
+				&& Objects.equals(actors, other.actors) && languageId == other.languageId && length == other.length
+				&& Objects.equals(rating, other.rating) && releaseYear == other.releaseYear
+				&& rentalDuration == other.rentalDuration
+				&& Double.doubleToLongBits(rentalRate) == Double.doubleToLongBits(other.rentalRate)
+				&& Double.doubleToLongBits(replacementCost) == Double.doubleToLongBits(other.replacementCost)
+				&& Objects.equals(specialFeatures, other.specialFeatures) && Objects.equals(title, other.title);
 	}
 
+//	title, year, rating, and description are displayed
+	public String stringReturnFromSearchByFilmID() {
+		return "Title: " + title + "\nRelease Year: " + releaseYear +  "\nRating: " + rating + "\nDescription: " + description + "\nActors: " + actors + "\n";
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "Film [filmId=" + filmId + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
-				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
-				+ ", length=" + length + ", replacementCost=" + replacementCost + ", rating=" + rating
-				+ ", specialFeatures=" + specialFeatures + "]";
+		if(actors != null) {
+		return "ID: " + filmId + "| Title: " + title + "| Description: " + description + "| Release Year: "
+				+ releaseYear + "| LanguageId: " + languageId + "| Rental Duration: " + rentalDuration + "| Rental Rate: "
+				+ rentalRate + "| Length: " + length + "| Replacement Cost: " + replacementCost + "| Rating: " + rating
+				+ "| Special features: " + specialFeatures + "Actors: " + actors + "\n";
+		} else {
+			return "Film ID: " + filmId + "| Title: " + title + "| Description: " + description + "| Release Year: "
+					+ releaseYear + "| LanguageId: " + languageId + "| Rental Duration: " + rentalDuration + "| Rental Rate: "
+					+ rentalRate + "| Length: " + length + "| Replacement Cost: " + replacementCost + "| Rating: " + rating
+					+ "| Special features: " + specialFeatures + "\n";
+		}
 	}
-
 
 	
 }
