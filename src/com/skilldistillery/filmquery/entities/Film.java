@@ -10,14 +10,14 @@ public class Film {
 	}
 
 	// ctor w/args
-	public Film(int filmId, String title, String description, int releaseYear, int languageId, int rentalDuration,
+	public Film(int filmId, String title, String description, int releaseYear, String languageName, int rentalDuration,
 			double rentalRate, int length, double replacementCost, String rating, String specialFeatures) {
 		super();
 		this.filmId = filmId;
 		this.title = title;
 		this.description = description;
 		this.releaseYear = releaseYear;
-		this.languageId = languageId;
+		this.languageName = languageName;
 		this.rentalDuration = rentalDuration;
 		this.rentalRate = rentalRate;
 		this.length = length;
@@ -31,7 +31,7 @@ public class Film {
 	private String title;
 	private String description;
 	private int releaseYear;
-	private int languageId;
+	private String languageName;
 	private int rentalDuration;
 	private double rentalRate;
 	private int length;
@@ -73,12 +73,12 @@ public class Film {
 		this.releaseYear = releaseYear;
 	}
 
-	public int getLanguageId() {
-		return languageId;
+	public String getLanguageName() {
+		return languageName;
 	}
 
-	public void setLanguageId(int languageId) {
-		this.languageId = languageId;
+	public void setLanguageName(String languageName) {
+		this.languageName = languageName;
 	}
 
 	public int getRentalDuration() {
@@ -140,7 +140,7 @@ public class Film {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, filmId, actors, languageId, length, rating, releaseYear, rentalDuration,
+		return Objects.hash(description, filmId, actors, languageName, length, rating, releaseYear, rentalDuration,
 				rentalRate, replacementCost, specialFeatures, title);
 	}
 
@@ -154,7 +154,7 @@ public class Film {
 			return false;
 		Film other = (Film) obj;
 		return Objects.equals(description, other.description) && filmId == other.filmId
-				&& Objects.equals(actors, other.actors) && languageId == other.languageId && length == other.length
+				&& Objects.equals(actors, other.actors) && languageName == other.languageName && length == other.length
 				&& Objects.equals(rating, other.rating) && releaseYear == other.releaseYear
 				&& rentalDuration == other.rentalDuration
 				&& Double.doubleToLongBits(rentalRate) == Double.doubleToLongBits(other.rentalRate)
@@ -164,7 +164,15 @@ public class Film {
 
 //	title, year, rating, and description are displayed
 	public String stringReturnFromSearchByFilmID() {
-		return "Title: " + title + "\nRelease Year: " + releaseYear +  "\nRating: " + rating + "\nDescription: " + description + "\nActors: " + actors + "\n";
+		String actorList = ""; 
+		for (Actor actor : actors) {
+			actorList += actor; 
+		}
+		
+		
+		return "Title: " + title + "\nLanguage: " + languageName + "\nReleased: " + releaseYear +  "\nRating: " + rating + "\nDescription: " 
+				+ description + " " + actorList + "\n"
+				+ "==================================================================================================";
 	}
 	
 	
@@ -172,12 +180,12 @@ public class Film {
 	public String toString() {
 		if(actors != null) {
 		return "ID: " + filmId + "| Title: " + title + "| Description: " + description + "| Release Year: "
-				+ releaseYear + "| LanguageId: " + languageId + "| Rental Duration: " + rentalDuration + "| Rental Rate: "
+				+ releaseYear + "| LanguageId: " + languageName + "| Rental Duration: " + rentalDuration + "| Rental Rate: "
 				+ rentalRate + "| Length: " + length + "| Replacement Cost: " + replacementCost + "| Rating: " + rating
 				+ "| Special features: " + specialFeatures + "Actors: " + actors + "\n";
 		} else {
 			return "Film ID: " + filmId + "| Title: " + title + "| Description: " + description + "| Release Year: "
-					+ releaseYear + "| LanguageId: " + languageId + "| Rental Duration: " + rentalDuration + "| Rental Rate: "
+					+ releaseYear + "| LanguageId: " + languageName + "| Rental Duration: " + rentalDuration + "| Rental Rate: "
 					+ rentalRate + "| Length: " + length + "| Replacement Cost: " + replacementCost + "| Rating: " + rating
 					+ "| Special features: " + specialFeatures + "\n";
 		}
