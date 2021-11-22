@@ -64,7 +64,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			Connection conn = DriverManager.getConnection(url, user, pass);
 
 			String sql = "SELECT * FROM film JOIN film_actor ON film.id = film_actor.film_id JOIN language ON film.language_id = language.id WHERE actor_id = ?";
-			
+
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, actorId);
 
@@ -98,7 +98,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			Connection conn = DriverManager.getConnection(url, user, pass);
 
 			String sql = "SELECT * FROM film JOIN language ON film.language_id = language.id WHERE description LIKE lower(?) OR title LIKE lower(?)";
-			
+
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, keyword);
 			stmt.setString(2, keyword);
