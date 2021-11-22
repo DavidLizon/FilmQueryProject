@@ -43,7 +43,6 @@ public class FilmQueryApp {
 		boolean keepGoing = true;
 
 		do {
-
 			boolean gotValidInput = false;
 			while (!gotValidInput) {
 				try {
