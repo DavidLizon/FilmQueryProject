@@ -36,7 +36,7 @@ public class FilmQueryApp {
 	}
 
 	private void startUserInterface(Scanner input) {
-// cmd line driven interface using scanner
+
 		welcomeMsg();
 		
 		boolean keepGoing = true;
@@ -81,9 +81,6 @@ public class FilmQueryApp {
 					}
 					
 					System.out.println();
-//				select count(*) from film where title like lower("%attacks%") description like lower("%attacks%");
-//				3 results in desc AND title
-//				 Fanciful Tale returns 2
 
 					break;
 				case 3: 

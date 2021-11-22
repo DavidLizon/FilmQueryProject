@@ -24,7 +24,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public Film findFilmById(int filmId) {
 		Film film = null;
-
 		String url = connectionLocation();
 		String user = dbUsername();
 		String pass = dbPassword();
@@ -42,7 +41,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			if (rs.next()) {
 				film = new Film(); // Create the object
 				film = setFilmObjectAttributes(film, rs); // Sets common film attributes
-//				film.setActors(findActorsByFilmId(filmId)); // An Actor has Films
 			}
 
 			rs.close();
@@ -58,7 +56,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public List<Film> findFilmsByActorId(int actorId) {
 		List<Film> films = new ArrayList<>();
 		Film film = null;
-
 		String url = connectionLocation();
 		String user = dbUsername();
 		String pass = dbPassword();
@@ -91,17 +88,15 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public List<Film> findFilmByKeyword(String keyword) {
 		List<Film> films = new ArrayList<>();
 		Film film = null;
-		keyword = "%" + keyword + "%";
-
 		String url = connectionLocation();
 		String user = dbUsername();
 		String pass = dbPassword();
 
+		keyword = "%" + keyword + "%";
+
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pass);
 
-//			String sql = "SELECT * FROM film JOIN language ON film.language_id = language.id WHERE description LIKE lower(?) OR title LIKE lower(?) LIMIT 1";
-			// real code below... above code for testing search by keyword
 			String sql = "SELECT * FROM film JOIN language ON film.language_id = language.id WHERE description LIKE lower(?) OR title LIKE lower(?)";
 			
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -113,9 +108,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			while (rs.next()) {
 				film = new Film(); // Create the object
 				film = setFilmObjectAttributes(film, rs);
-				
-//				int filmId = film.getFilmId();
-//				film.setActors(findActorsByFilmId(filmId)); // An Actor has Films
 				films.add(film);
 			}
 
@@ -167,7 +159,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public Actor findActorById(int actorId) {
 		Actor actor = null;
-
 		String url = connectionLocation();
 		String user = dbUsername();
 		String pass = dbPassword();
@@ -185,9 +176,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			if (rs.next()) {
 				actor = new Actor(); // Create the object
 				// Here is our mapping of query columns to our object fields:
-//				actor.setId(rs.getInt("id"));
-//				actor.setFirstName(rs.getString("first_name"));
-//				actor.setLastName(rs.getString("last_name"));
 				setActorObjectAttributes(actor, rs);
 				actor.setFilms(findFilmsByActorId(actorId)); // An Actor has Films
 			}
